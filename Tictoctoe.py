@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter.messagebox
 tk = Tk()
-tk.title("Tic Tac Toe BY SAHA")
+tk.title("Tic Tac Toe BY NULL")
 pa = StringVar()
 playerb = StringVar()
 p1 = StringVar()
