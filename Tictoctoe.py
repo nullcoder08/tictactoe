@@ -1,111 +1,113 @@
-from tkinter import *
-import tkinter.messagebox
-tk = Tk()
-tk.title("Tic Tac Toe BY NULL")
-pa = StringVar()
-playerb = StringVar()
-p1 = StringVar()
-p2 = StringVar()
-player1_name = Entry(tk, textvariable=p1, bd=5)
-player1_name.grid(row=1, column=1, columnspan=8)
-player2_name = Entry(tk, textvariable=p2, bd=5)
-player2_name.grid(row=2, column=1, columnspan=8)
-
-bclick = True
-flag = 0
-
-def disableButton():
-    button1.configure(state=DISABLED)
-    button2.configure(state=DISABLED)
-    button3.configure(state=DISABLED)
-    button4.configure(state=DISABLED)
-    button5.configure(state=DISABLED)
-    button6.configure(state=DISABLED)
-    button7.configure(state=DISABLED)
-    button8.configure(state=DISABLED)
-    button9.configure(state=DISABLED)
-
-
-
-def btnClick(buttons):
-    global bclick, flag, player2_name, player1_name, playerb, pa
-    if buttons["text"] == " " and bclick == True:
-        buttons["text"] = "X"
-        bclick = False
-        playerb = p2.get() + " Wins!"
-        pa = p1.get() + " Wins!"
-        checkForWin()
-        flag += 1
-
-    elif buttons["text"] == " " and bclick == False:
-        buttons["text"] = "O"
-        bclick = True
-        checkForWin()
-        flag += 1
+import random
+import time
+def board(pName,pc,p,ps,cs):
+    print("\t\t\t  : ",pName.upper()+"["+ps+"]", "   vs   ",pc+"["+cs+"]" )
+    print("\t\t\t  _____________________________________")
+    print("\t\t\t |1          |2           |3           |")
+    print("\t\t\t |     "+p[0]+ "     |      "+p[1]+"     |     "+p[2]+"      |")
+    print("\t\t\t |           |            |            |")
+    print("\t\t\t  _____________________________________")
+    print("\t\t\t |4          |5           |6           |")
+    print("\t\t\t |     "+p[3]+ "     |      "+p[4]+"     |     "+p[5]+"      |")
+    print("\t\t\t |           |            |            |")
+    print("\t\t\t  _____________________________________")
+    print("\t\t\t |7          |8           |9           |")
+    print("\t\t\t |     "+p[6]+ "     |      "+p[7]+"     |     "+p[8]+"      |")
+    print("\t\t\t |           |            |            |")
+    print("\t\t\t  -------------------------------------")
+def winner(p,t):
+    if((p[0] == t and p[1] ==t and p[2] == t) or
+        (p[3] == t and p[4] == t and p[5] == t) or
+        (p[6] == t and p[7] == t and p[8] == t) or
+        (p[0] == t and p[3] == t and p[6] == t) or
+        (p[1] == t and p[4] == t and p[7] == t) or
+        (p[2] == t and p[5] == t and p[8] == t) or
+        (p[0] == t and p[4] == t and p[8] == t) or
+        (p[2] == t and p[4] == t and p[6] == t)):
+        return True
     else:
-        tkinter.messagebox.showinfo("Tic-Tac-Toe", "Button already Clicked!")
-def checkForWin():
-    if (button1['text'] == 'X' and button2['text'] == 'X' and button3['text'] == 'X' or
-        button4['text'] == 'X' and button5['text'] == 'X' and button6['text'] == 'X' or
-        button7['text'] =='X' and button8['text'] == 'X' and button9['text'] == 'X' or
-        button1['text'] == 'X' and button5['text'] == 'X' and button9['text'] == 'X' or
-        button3['text'] == 'X' and button5['text'] == 'X' and button7['text'] == 'X' or
-        button1['text'] == 'X' and button2['text'] == 'X' and button3['text'] == 'X' or
-        button1['text'] == 'X' and button4['text'] == 'X' and button7['text'] == 'X' or
-        button2['text'] == 'X' and button5['text'] == 'X' and button8['text'] == 'X' or
-        button7['text'] == 'X' and button6['text'] == 'X' and button9['text'] == 'X'):
-        disableButton()
-        tkinter.messagebox.showinfo("Tic-Tac-Toe", pa)
-    elif(flag == 8):
-        tkinter.messagebox.showinfo("Tic-Tac-Toe", "It is a Tie")
-
-    elif (button1['text'] == 'O' and button2['text'] == 'O' and button3['text'] == 'O' or
-          button4['text'] == 'O' and button5['text'] == 'O' and button6['text'] == 'O' or
-          button7['text'] == 'O' and button8['text'] == 'O' and button9['text'] == 'O' or
-          button1['text'] == 'O' and button5['text'] == 'O' and button9['text'] == 'O' or
-          button3['text'] == 'O' and button5['text'] == 'O' and button7['text'] == 'O' or
-          button1['text'] == 'O' and button2['text'] == 'O' and button3['text'] == 'O' or
-          button1['text'] == 'O' and button4['text'] == 'O' and button7['text'] == 'O' or
-          button2['text'] == 'O' and button5['text'] == 'O' and button8['text'] == 'O' or
-          button7['text'] == 'O' and button6['text'] == 'O' and button9['text'] == 'O'):
-        disableButton()
-        tkinter.messagebox.showinfo("Tic-Tac-Toe", playerb)
+        return False
 
 
-buttons = StringVar()
+if __name__ == '__main__':
+    again=1
+    print('\n\n\n!!-------------: PlAY  ("_") TIC TAC TOE ("_")  WITH COMPUTER / Friend :-----------!!')
+    print("---------------------------------------------------------------------------------")
+    print("---------: MODE :---------\n 1   -    COMPUTER :\n 2   -    FRIEND: ")
+    ck = input("Enter Choice : ")
+    while (ck != "1" and ck != "2"):
+        print("------> Invalid Choice <-----")
+        ck = input("Enter Choice : ")
+    ck = ord(ck) - 48
+    pName = input("Enter Your Name :\t").upper()
+    if (ck == 1):
+        pc = "COMPUTER"
+    else:
+        pc = input("Enter Friend's Name : ").upper()
+    p = [" ", " ", " ", " ", " ", " ", " ", " ", " "] # [" "]*9
+    cnt = 0
+    ps = input("Choose Your Symbol  (O , X) : ").upper()
+    while (ps != "O" and ps != "X"):
+        ps = input("Please choose either 'o' or 'x' :").upper()
+    if (ps == "X"):
+        cs = "O"
+    else:
+        cs = "X"
 
-label = Label( tk, text="Player 1:", font='Times 20 bold', bg='white', fg='black', height=1, width=8)
-label.grid(row=1, column=0)
+    while(again):
+        board(pName, pc, p,ps,cs)
+        print("\n\t\t GAME IS LOADING PLEASE WAIT......!!!!!")
+        time.sleep(3)
+        while (cnt < 9):
+            if (cnt % 2 == 0):
+                if (ck == 1):
+                    choice = random.randint(1, 9)
+                else:
+                    print(pc, "Turns ", end=" ")
+                    choice = input(" Enter Choice :")
+                    choice = ord(choice) - 48
+                    if (choice > 0 and choice < 10):
+                        if (p[choice - 1] == cs or p[choice - 1] == ps):
+                            print("------>Invalid Choice<-----")
+                            continue
+                    else:
+                        print("------>Invalid Choice<-----")
+                        continue
 
+                if (p[choice - 1] != cs and p[choice - 1] != ps):
+                    p[choice - 1] = cs
+                    cnt += 1
+                    print("\t", pc, "turns processing....Wait please...??")
+                    if (ck == 1):
+                        time.sleep(1)
+                    print("\t", pc, "TURNS :\t DONE: ")
+                    board(pName, pc, p, ps, cs)
+                    if (winner(p, cs)):
+                        print("  !!!---->-->--->opps, Bad Luck -----Better Luck Next Time-------!!!")
+                        cnt=0
+                        break
 
-label = Label( tk, text="Player 2:", font='Times 20 bold', bg='white', fg='black', height=1, width=8)
-label.grid(row=2, column=0)
+            else:
+                print(pName, "Turns ", end="")
+                choice = input("Enter Choice :")
+                choice = ord(choice) - 48
+                if (choice > 0 and choice < 10):
+                    if (p[choice - 1] == cs or p[choice - 1] == ps):
+                        print("------>Invalid Position :<-----")
+                    else:
+                        p[choice - 1] = ps
+                        cnt += 1
+                        board(pName, pc, p, ps, cs)
+                        if (winner(p, ps)):
+                            print("    !!!->-->->-Congrats " + pName + ", YOU WON<--<-<-  !!!-------!!!")
+                            break;
+                else:
+                    print("------>Invalid Choice<-----")
+        if (cnt > 8):
+            print("   ----->>-->  No-One Wons ,<--<<-------")
+        print("Wanna play again: type 'yes': Otherwise click any key ::",end="")
+        sk=input().upper()
+        if(sk!="YES"):
+            again=0
 
-button1 = Button(tk, text=" ", font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button1))
-button1.grid(row=3, column=0)
-
-button2 = Button(tk, text=' ', font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button2))
-button2.grid(row=3, column=1)
-
-button3 = Button(tk, text=' ',font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button3))
-button3.grid(row=3, column=2)
-
-button4 = Button(tk, text=' ', font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button4))
-button4.grid(row=4, column=0)
-
-button5 = Button(tk, text=' ', font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button5))
-button5.grid(row=4, column=1)
-
-button6 = Button(tk, text=' ', font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button6))
-button6.grid(row=4, column=2)
-
-button7 = Button(tk, text=' ', font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button7))
-button7.grid(row=5, column=0)
-
-button8 = Button(tk, text=' ', font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button8))
-button8.grid(row=5, column=1)
-
-button9 = Button(tk, text=' ', font='Times 20 bold', bg='gray', fg='white', height=4, width=8, command=lambda: btnClick(button9))
-button9.grid(row=5, column=2)
-
-tk.mainloop()
+            print("\t\t\t\t\t---->>>-->>>>--THANKU YOU--<<<<<<<<----------------")
